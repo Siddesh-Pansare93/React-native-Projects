@@ -15,10 +15,9 @@ const FancyCards = () => {
                     />
                     <View style={styles.cardBody}>
                         <Text style={styles.cardTitle}>Hawa Mahal</Text>
-                        <Text style={styles.cardLabel}>Pink City Jaipur</Text>
+                        <Text style={styles.cardLabel}>Pink City , Jaipur</Text>
                         <Text style={styles.cardDescription}>This is hawa mahal which is one of the major historical places in the Jaipur in rajasthan</Text>
                         <Text style={styles.cardFooter}>10 minutes away </Text>
-
                     </View>
                 </View>
             </View>
