@@ -1,38 +1,58 @@
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-import React , {useState  , useEffect } from 'react'
-import { AddTracks, setupPlayer } from '../musicService'
+import React, {useState, useEffect} from "react"
 
-const App = () => {
+import type {PropsWithChildren} from 'react';
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
-  const [isPlayerReady, setIsPlayerReady] = useState(false)
+import {setupPlayer, AddTracks} from "../musicService"
+import MusicPlayer from "./screens/MusicPlayer";
 
-  const setUp = async ()=>{
-      let isSetup = await setupPlayer()
 
-      if(isSetup){
-        await AddTracks()
-        setIsPlayerReady(true)
-      }
+function App(): JSX.Element {
+  const [isPlayerReady, setIsPaylerReady] = useState(false)
+
+  async function setup(){
+    let isSetup = await setupPlayer()
+
+    if (isSetup) {
+      await AddTracks()
+    }
+
+    setIsPaylerReady(isSetup)
   }
 
   useEffect(() => {
-   setUp()
+    setup()
   }, [])
-
-
-  if(!isPlayerReady){
-    return (  
-      <ActivityIndicator/>
+  
+  if (!isPlayerReady) {
+    return (
+      <SafeAreaView>
+        <ActivityIndicator />
+      </SafeAreaView>
     )
   }
-  
+
   return (
-    <View>
-      <Text>App</Text>
+    <View style={styles.container}>
+      <StatusBar barStyle={"light-content"} />
+      <MusicPlayer />
     </View>
-  )
+  );
 }
 
-export default App
+const styles = StyleSheet.create({
+  container:{
+    flex: 1
+  }
+});
 
-const styles = StyleSheet.create({})
+export default App;
